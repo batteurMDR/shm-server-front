@@ -1,7 +1,7 @@
 {
-  "name": "genius-react-skeleton",
-  "version": "0.1.0",
-  "description": "A Basic React Skeleton by Genius Team",
+  "name": "shm-server-front",
+  "version": "1.0.0",
+  "description": "The web interface for SHM",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
