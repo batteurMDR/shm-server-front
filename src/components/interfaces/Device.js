@@ -162,7 +162,9 @@ class Device extends Component {
 
     delete = (e) => {
         if(confirm("Supprime la device ?")){
-            axios.delete(API_URL+"device/"+this.props.match.params.id)
+            axios.delete(API_URL+"device/"+this.props.match.params.id,{headers: {
+                "x-access-token": localStorage.getItem('token')
+              }})
             .then(res => {
                 console.log(res);
                 this.props.history.push('/devices');
