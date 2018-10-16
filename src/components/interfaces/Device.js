@@ -152,12 +152,19 @@ class Device extends Component {
                 });
             });     
 
-        const  socket = openSocket(SOCKET_URL);
-        socket.on('update', state => {
-            if(this.state.live){
-                window.location.reload();
-            }
-        });
+        // const  socket = openSocket(SOCKET_URL);
+        // socket.on('update', state => {
+        //     if(this.state.live){
+        //         window.location.reload();
+        //     }
+        // });
+        // <label style={{ marginTop: '1em',  marginBottom: '1em'  }} >
+        //     <Toggle
+        //         defaultChecked={this.state.live}
+        //         aria-label='Live Update'
+        //         onChange={this.handleLive} />
+        //         <span style={{"verticalAlign":"top","marginLeft":"10px"}}>Live Update</span>
+        // </label>
     }
 
     delete = (e) => {
@@ -180,7 +187,9 @@ class Device extends Component {
         if(confirm("Changer la device de groupe ?")){
             const params = new URLSearchParams();
             params.append('group', e.target.value);
-            axios.put(API_URL+"device/"+this.props.match.params.id, params)
+            axios.put(API_URL+"device/"+this.props.match.params.id, params,{headers: {
+                "x-access-token": localStorage.getItem('token')
+              }})
             .then(res => {
                 this.props.history.push("/");
             });
@@ -237,13 +246,6 @@ class Device extends Component {
                 />
                 <Button style={{ marginTop: '1em',  marginBottom: '1em'  }} color='blue' onClick={this.logs}>Voir les logs</Button>
                 <br/>
-                <label style={{ marginTop: '1em',  marginBottom: '1em'  }} >
-                    <Toggle
-                        defaultChecked={this.state.live}
-                        aria-label='Live Update'
-                        onChange={this.handleLive} />
-                        <span style={{"verticalAlign":"top","marginLeft":"10px"}}>Live Update</span>
-                </label>
                 <select style={{ marginTop: '1em',  marginBottom: '1em'  }} className="ui fluid dropdown" onChange={this.changeGroup} value={this.state.device.group._id}>
                     {this.state.groups.map(group => (
                         <option key={group.id} value={group.id}>{group.name}</option>
